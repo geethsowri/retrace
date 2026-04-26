@@ -2,6 +2,14 @@ import apiSlice from "./apiSlice";
 
 const entriesApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
+    classifyMood: builder.mutation({
+      query: (content) => ({
+        url: "/entries/classify-mood",
+        method: "POST",
+        body: { content },
+      }),
+    }),
+
     addEntry: builder.mutation({
       query: (data) => ({
         url: "/entries",
@@ -48,6 +56,7 @@ const entriesApiSlice = apiSlice.injectEndpoints({
 });
 
 export const {
+  useClassifyMoodMutation,
   useAddEntryMutation,
   useGetEntriesQuery,
   useGetEntryQuery,

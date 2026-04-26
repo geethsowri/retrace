@@ -5,34 +5,30 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 const moodMap = {
   happy: "🙂",
-  joy: "🙂",
-  cheerful: "🙂",
   sad: "😔",
   stressed: "😔",
-  tired: "😔",
-  depressed: "😔",
   angry: "😡",
-  mad: "😡",
-  frustrated: "😡",
-  neutral: "🙂", // fallback to 🙂
+  neutral: "🙂",
 };
 
 async function classifyMood(text) {
-  const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+  const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
-  const prompt = `
-Classify the user's journal entry into one of the following moods:
-Happy, Sad, Stressed, Angry, Neutral.
-Return only the mood as one word.
-Entry:
-"""${text}"""
-`;
+  const sanitized = text.replace(/\\/g, "\\\\").replace(/`/g, "\\`");
+
+  const prompt = `You are a mood classifier. Analyze the journal entry below and respond with exactly one word from this list: Happy, Sad, Stressed, Angry, Neutral. No punctuation, no explanation, just the one word.
+
+Journal entry:
+<entry>
+${sanitized}
+</entry>
+
+Mood:`;
 
   const result = await model.generateContent(prompt);
   const response = await result.response;
-  const moodText = response.text().trim().toLowerCase();
+  const moodText = response.text().trim().toLowerCase().split(/\s+/)[0];
 
-  // Map mood → emoji
   return moodMap[moodText] || "🙂";
 }
 
