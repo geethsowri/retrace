@@ -5,6 +5,7 @@ const entryController = require("../controllers/entryController");
 
 router.use(authMiddleware);
 
+router.post("/classify-mood", entryController.classifyMoodEntry);
 router.post("/", entryController.createEntry);
 router.get("/", entryController.getEntries);
 router.get("/search", entryController.searchEntries);

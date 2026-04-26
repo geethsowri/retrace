@@ -2,8 +2,19 @@ const Entry = require("../models/entryModel");
 const validator = require("validator");
 const classifyMood = require("../utils/classifyMood");
 
+const classifyMoodEntry = async (req, res) => {
+  const { content } = req.body;
+  if (!content?.trim()) return res.status(422).json({ message: "Content required." });
+  try {
+    const mood = await classifyMood(content);
+    res.status(200).json({ mood });
+  } catch (err) {
+    res.status(500).json({ message: "Mood classification failed." });
+  }
+};
+
 const createEntry = async (req, res) => {
-  const { date, title, content } = req.body;
+  const { date, title, content, mood } = req.body;
   const loggedUser = req.user;
 
   if (!title || !content)
@@ -30,18 +41,11 @@ const createEntry = async (req, res) => {
   }
 
   try {
-    let mood = "🙂";
-    try {
-      mood = await classifyMood(content);
-    } catch (err) {
-      console.warn("Mood classification failed. Using default.", err.message);
-    }
-
     const saveEntry = await Entry.create({
       createdBy: loggedUser._id,
       date,
       title,
-      mood,
+      mood: mood || "🙂",
       content,
     });
 
@@ -106,7 +110,7 @@ const getEntry = async (req, res) => {
 const updateEntry = async (req, res) => {
   const loggedUser = req.user;
   const entryId = req.params.id;
-  const { date, title, content } = req.body;
+  const { date, title, content, mood } = req.body;
 
   if (!title || !content)
     return res
@@ -132,20 +136,9 @@ const updateEntry = async (req, res) => {
   }
 
   try {
-    // Auto-reclassify mood based on new content
-    let mood = "🙂";
-    try {
-      mood = await classifyMood(content);
-    } catch (err) {
-      console.warn(
-        "Mood re-classification failed. Using default.",
-        err.message
-      );
-    }
-
     const entry = await Entry.findOneAndUpdate(
       { _id: entryId, createdBy: loggedUser._id },
-      { date, title, content, mood },
+      { date, title, content, mood: mood || "🙂" },
       { new: true, runValidators: true }
     );
 
@@ -236,6 +229,7 @@ const searchEntries = async (req, res) => {
 };
 
 module.exports = {
+  classifyMoodEntry,
   createEntry,
   getEntries,
   getEntry,

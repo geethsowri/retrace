@@ -1,11 +1,18 @@
 import ModalLayout from "../ModalLayout";
 import { Pencil } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   useGetEntryQuery,
   useUpdateEntryMutation,
+  useClassifyMoodMutation,
 } from "../../redux/api/entriesApiSlice";
 import toast from "react-hot-toast";
+
+const MOODS = [
+  { emoji: "🙂", label: "Happy" },
+  { emoji: "😔", label: "Sad" },
+  { emoji: "😡", label: "Angry" },
+];
 
 const EditEntry = ({ id }) => {
   const [open, setOpen] = useState(false);
@@ -13,35 +20,50 @@ const EditEntry = ({ id }) => {
     skip: !open,
   });
   const [updateEntry, { isLoading: entryUpdating }] = useUpdateEntryMutation();
+  const [classifyMood] = useClassifyMoodMutation();
   const isLoading = entryLoading || entryUpdating;
 
-  const [formData, setFormData] = useState({
-    title: "",
-    mood: "",
-    content: "",
-    date: "",
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+  const [formData, setFormData] = useState({ title: "", content: "", date: "" });
+  const [mood, setMood] = useState("");
+  const [detecting, setDetecting] = useState(false);
+  const debounceRef = useRef(null);
 
   useEffect(() => {
     if (getEntry) {
       setFormData({
         title: getEntry.data?.title || "",
-        mood: getEntry.data?.mood || "",
         content: getEntry.data?.content || "",
         date: new Date(getEntry.data?.date).toISOString().slice(0, 10) || "",
       });
+      setMood(getEntry.data?.mood || "");
     }
   }, [getEntry]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+
+    if (name === "content") {
+      clearTimeout(debounceRef.current);
+      if (value.trim().length < 10) return;
+      setDetecting(true);
+      debounceRef.current = setTimeout(async () => {
+        try {
+          const res = await classifyMood(value).unwrap();
+          setMood(res.mood);
+        } catch {
+          // silent — user can pick manually
+        } finally {
+          setDetecting(false);
+        }
+      }, 800);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await updateEntry({ id, data: formData }).unwrap();
+      const res = await updateEntry({ id, data: { ...formData, mood: mood || "🙂" } }).unwrap();
       setOpen(false);
       toast.success(res?.message || "Entry updated.");
     } catch (err) {
@@ -75,7 +97,7 @@ const EditEntry = ({ id }) => {
                 onChange={handleChange}
                 required
                 placeholder="Give your entry a title"
-                className="w-full mt-1 px-3 py-2 bg-[#2a2a2a] border border-[#3a3a3a] rounded-lg "
+                className="w-full mt-1 px-3 py-2 bg-[#2a2a2a] border border-[#3a3a3a] rounded-lg"
               />
             </div>
 
@@ -96,18 +118,20 @@ const EditEntry = ({ id }) => {
 
               <div className="flex-1">
                 <label className="text-sm" htmlFor={`mood.${id}`}>
-                  Mood <span className="text-red-500">*</span>
+                  Mood {detecting && <span className="text-gray-400 text-xs">detecting...</span>}
                 </label>
                 <select
-                  name="mood"
                   id={`mood.${id}`}
-                  value={formData.mood}
-                  onChange={handleChange}
+                  value={mood}
+                  onChange={(e) => setMood(e.target.value)}
                   className="w-full mt-1 px-3 py-2 bg-[#2a2a2a] border border-[#3a3a3a] rounded-lg"
                 >
-                  <option value="🙂">🙂 Happy</option>
-                  <option value="😔">😔 Sad</option>
-                  <option value="😡">😡 Angry</option>
+                  <option value="" disabled>-- AI will detect --</option>
+                  {MOODS.map((m) => (
+                    <option key={m.emoji} value={m.emoji}>
+                      {m.emoji} {m.label}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>
@@ -123,7 +147,7 @@ const EditEntry = ({ id }) => {
                 onChange={handleChange}
                 required
                 placeholder="Write your thoughts..."
-                className="w-full mt-1 px-3 py-2 h-40 bg-[#2a2a2a] border border-[#3a3a3a] rounded-lg resize-none "
+                className="w-full mt-1 px-3 py-2 h-40 bg-[#2a2a2a] border border-[#3a3a3a] rounded-lg resize-none"
               />
             </div>
 
