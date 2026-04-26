@@ -22,7 +22,7 @@ const Home = () => {
           </div>
           <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-white leading-tight">
             {user ? `Welcome back,` : "Your thoughts,"}<br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">
+            <span className="text-transparent bg-clip-text text-white from-indigo-400 to-purple-400">
               {user ? user.data.firstName : "finally private"}
             </span>
           </h1>
