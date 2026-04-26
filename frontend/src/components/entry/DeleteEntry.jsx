@@ -20,33 +20,25 @@ const DeleteEntry = ({ id }) => {
 
   return (
     <>
-      <p
+      <button
         onClick={() => setOpen(true)}
-        className="text-red-500 hover:text-red-400 cursor-pointer"
+        className="p-1.5 rounded-lg text-gray-500 hover:text-red-400 hover:bg-red-500/10 transition"
       >
-        <Trash2 size={18} />
-      </p>
+        <Trash2 size={14} />
+      </button>
 
       <ModalLayout isOpen={open} close={() => setOpen(false)}>
-        <div className="bg-[#1a1a1a] text-gray-200 rounded-2xl p-6 max-w-sm mx-auto shadow-lg space-y-5">
-          <h2 className="text-center text-lg font-medium text-gray-300">
-            Are you sure you want to delete this entry?
-          </h2>
-
-          <div className="flex justify-between gap-4 mt-4">
-            <button
-              onClick={() => setOpen(false)}
-              className="flex-1 py-2 rounded-lg border border-gray-600 text-gray-300 hover:bg-gray-800 transition"
-            >
+        <div className="p-6 space-y-4">
+          <h2 className="text-lg font-semibold text-white">Delete entry?</h2>
+          <p className="text-sm text-gray-400">This can't be undone.</p>
+          <div className="flex gap-3 pt-1">
+            <button onClick={() => setOpen(false)}
+              className="flex-1 py-2.5 rounded-lg border border-white/[0.08] text-sm text-gray-400 hover:text-white hover:bg-white/5 transition">
               Cancel
             </button>
-
-            <button
-              onClick={handleDelete}
-              disabled={isLoading}
-              className="flex-1 py-2 rounded-lg bg-red-600 hover:bg-red-500 text-white transition disabled:opacity-50"
-            >
-              {isLoading ? "Deleting..." : "Confirm"}
+            <button onClick={handleDelete} disabled={isLoading}
+              className="flex-1 py-2.5 rounded-lg bg-red-600/80 hover:bg-red-500 text-white text-sm transition disabled:opacity-50">
+              {isLoading ? "Deleting..." : "Delete"}
             </button>
           </div>
         </div>

@@ -32,55 +32,27 @@ const Profile = ({ close }) => {
   };
 
   return (
-    <div className="card-body">
-      <h2 className="card-title block text-center text-lg mb-2">
-        Profile Information
-      </h2>
-
-      <p className="text-center text-error">{email}</p>
-      <div className="text-center my-3">
-        <p>You can update your first and last name directly on this page.</p>
-        <p>And please note that your email address cannot be changed here.</p>
-        <p>
-          Once you've made changes to your name, click the 'Save Changes' button
-          below.
-        </p>
+    <div className="p-6 space-y-5">
+      <h2 className="text-lg font-semibold text-white">Profile</h2>
+      <div className="px-3 py-2 rounded-lg bg-white/[0.03] border border-white/[0.06] text-sm text-gray-400">
+        {email} <span className="text-gray-600 text-xs ml-1">· cannot be changed</span>
       </div>
 
-      <form onSubmit={handleSubmit}>
-        <div className="flex gap-5 justify-center items-center">
-          <div>
-            <label htmlFor="firstName">
-              First Name <span className="text-red-500">*</span>
-            </label>
-            <input
-              type="text"
-              id="firstName"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-              className="input rounded-lg my-3"
-              placeholder="Enter your first name"
-            />
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="grid grid-cols-2 gap-3">
+          <div className="space-y-1.5">
+            <label htmlFor="firstName" className="text-xs text-gray-400">First Name <span className="text-red-400">*</span></label>
+            <input type="text" id="firstName" value={firstName} onChange={(e) => setFirstName(e.target.value)} placeholder="First name"
+              className="w-full px-3 py-2.5 rounded-lg bg-white/5 border border-white/[0.07] text-sm text-gray-200 placeholder-gray-600 focus:outline-none focus:border-indigo-500/50 transition" />
           </div>
-
-          <div>
-            <label htmlFor="lastName">Last Name</label>
-            <input
-              type="text"
-              id="lastName"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-              className="input rounded-lg my-3"
-              placeholder="Optional"
-            />
+          <div className="space-y-1.5">
+            <label htmlFor="lastName" className="text-xs text-gray-400">Last Name</label>
+            <input type="text" id="lastName" value={lastName} onChange={(e) => setLastName(e.target.value)} placeholder="Optional"
+              className="w-full px-3 py-2.5 rounded-lg bg-white/5 border border-white/[0.07] text-sm text-gray-200 placeholder-gray-600 focus:outline-none focus:border-indigo-500/50 transition" />
           </div>
         </div>
-
-        <button
-          type="submit"
-          className="btn btn-primary w-full rounded-lg mt-3"
-          disabled={isLoading}
-        >
+        <button type="submit" disabled={isLoading}
+          className="w-full py-2.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium transition disabled:opacity-50">
           {isLoading ? "Saving..." : "Save Changes"}
         </button>
       </form>

@@ -13,27 +13,22 @@ const ReadMore = ({
   return (
     <>
       <button
-        className="text-sm px-3 py-1 border border-gray-700 rounded-lg text-gray-300 hover:bg-gray-800 transition"
+        className="text-xs px-3 py-1.5 rounded-lg border border-white/[0.08] text-gray-400 hover:text-white hover:border-white/20 hover:bg-white/5 transition"
         onClick={() => setOpen(true)}
       >
         Read More
       </button>
 
       <ModalLayout isOpen={open} close={() => setOpen(false)}>
-        <div className="bg-[#1a1a1a] text-gray-200 rounded-2xl p-6 space-y-4 max-w-xl mx-auto shadow-lg">
-          <div className="text-center text-xl font-semibold tracking-tight">
-            <span className="text-blue-400">{mood}</span> – {title}
+        <div className="p-6 space-y-4">
+          <div className="flex items-center justify-between mb-1">
+            <span className="text-xs text-gray-500">{formattedDate}</span>
+            <span className="text-2xl">{mood}</span>
           </div>
-
-          <div className="text-sm text-gray-500">Date: {formattedDate}</div>
-
-          <div className="text-base text-gray-300 leading-relaxed whitespace-pre-wrap">
-            {content}
-          </div>
-
-          <div className="text-right text-xs text-gray-500 mt-4">
-            Last edit: {formattedUpdateAt}
-          </div>
+          <h2 className="text-xl font-semibold text-white tracking-tight">{title}</h2>
+          <div className="h-px bg-white/[0.06]" />
+          <p className="text-sm text-gray-300 leading-relaxed whitespace-pre-wrap">{content}</p>
+          <div className="text-right text-xs text-gray-600">Edited {formattedUpdateAt}</div>
         </div>
       </ModalLayout>
     </>

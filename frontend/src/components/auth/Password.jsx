@@ -40,58 +40,25 @@ const Password = ({ close }) => {
   };
 
   return (
-    <div className="card-body">
-      <h2 className="card-title block text-center text-lg mb-2">
-        Change your password
-      </h2>
+    <div className="p-6 space-y-5">
+      <h2 className="text-lg font-semibold text-white">Change Password</h2>
+      <p className="text-sm text-gray-500">Confirm your current password before setting a new one.</p>
 
-      <p className="text-center text-error">{email}</p>
-      <div className="text-center my-3">
-        <p>
-          Hello {firstName}, for security reasons, you must confirm your old
-          password before setting a new one. Please enter your current password
-          below to proceed with updating your account credentials. Thank you!
-        </p>
-      </div>
-
-      <form onSubmit={handleSubmit}>
-        <div className="flex gap-5 justify-center items-center">
-          <div>
-            <label htmlFor="oldPassword">
-              Old Password <span className="text-red-500">*</span>
-            </label>
-            <input
-              type="password"
-              id="oldPassword"
-              value={oldPassword}
-              onChange={(e) => setOldPassword(e.target.value)}
-              autoComplete="current-password"
-              className="input rounded-lg my-3"
-              placeholder="Current password"
-            />
-          </div>
-
-          <div>
-            <label htmlFor="newPassword">
-              New Password <span className="text-red-500">*</span>
-            </label>
-            <input
-              type="password"
-              id="newPassword"
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
-              autoComplete="new-password"
-              className="input rounded-lg my-3"
-              placeholder="New password"
-            />
-          </div>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="space-y-1.5">
+          <label htmlFor="oldPassword" className="text-xs text-gray-400">Current Password <span className="text-red-400">*</span></label>
+          <input type="password" id="oldPassword" value={oldPassword} onChange={(e) => setOldPassword(e.target.value)}
+            autoComplete="current-password" placeholder="••••••••"
+            className="w-full px-3 py-2.5 rounded-lg bg-white/5 border border-white/[0.07] text-sm text-gray-200 placeholder-gray-600 focus:outline-none focus:border-indigo-500/50 transition" />
         </div>
-
-        <button
-          type="submit"
-          className="btn btn-primary w-full rounded-lg mt-3"
-          disabled={isLoading}
-        >
+        <div className="space-y-1.5">
+          <label htmlFor="newPassword" className="text-xs text-gray-400">New Password <span className="text-red-400">*</span></label>
+          <input type="password" id="newPassword" value={newPassword} onChange={(e) => setNewPassword(e.target.value)}
+            autoComplete="new-password" placeholder="••••••••"
+            className="w-full px-3 py-2.5 rounded-lg bg-white/5 border border-white/[0.07] text-sm text-gray-200 placeholder-gray-600 focus:outline-none focus:border-indigo-500/50 transition" />
+        </div>
+        <button type="submit" disabled={isLoading}
+          className="w-full py-2.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium transition disabled:opacity-50">
           {isLoading ? "Changing..." : "Change Password"}
         </button>
       </form>

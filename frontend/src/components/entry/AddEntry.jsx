@@ -75,87 +75,50 @@ const AddEntry = () => {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="w-14 h-14 rounded-full bg-blue-600 hover:bg-blue-500 text-white text-xl flex justify-center items-center transition shadow-lg"
+        className="w-12 h-12 rounded-full bg-indigo-600 hover:bg-indigo-500 text-white flex justify-center items-center transition shadow-lg shadow-indigo-500/20"
       >
         <FaPlus />
       </button>
 
       <ModalLayout isOpen={open} close={() => setOpen(false)}>
-        <div className="bg-[#1a1a1a] text-gray-200 p-6 rounded-2xl shadow-xl max-w-lg mx-auto space-y-5">
-          <h2 className="text-center text-xl font-semibold">Add New Entry</h2>
+        <div className="p-6 space-y-5">
+          <h2 className="text-lg font-semibold text-white">New Entry</h2>
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label className="text-sm" htmlFor="title">
-                Title <span className="text-red-500">*</span>
-              </label>
-              <input
-                type="text"
-                name="title"
-                id="title"
-                value={formData.title}
-                onChange={handleChange}
-                required
-                placeholder="Your journal title..."
-                className="w-full mt-1 px-3 py-2 bg-[#2a2a2a] border border-[#3a3a3a] rounded-lg outline-none"
-              />
+            <div className="space-y-1.5">
+              <label className="text-xs text-gray-400" htmlFor="title">Title <span className="text-red-400">*</span></label>
+              <input type="text" name="title" id="title" value={formData.title} onChange={handleChange} required
+                placeholder="Give your entry a title..."
+                className="w-full px-3 py-2.5 bg-white/5 border border-white/[0.07] rounded-lg text-sm text-gray-200 placeholder-gray-600 focus:outline-none focus:border-indigo-500/50 transition" />
             </div>
 
-            <div className="flex gap-4">
-              <div className="flex-1">
-                <label className="text-sm" htmlFor="date">
-                  Date <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="date"
-                  name="date"
-                  id="date"
-                  value={formData.date}
-                  onChange={handleChange}
-                  className="w-full mt-1 px-3 py-2 bg-[#2a2a2a] border border-[#3a3a3a] rounded-lg"
-                />
+            <div className="flex gap-3">
+              <div className="flex-1 space-y-1.5">
+                <label className="text-xs text-gray-400" htmlFor="date">Date</label>
+                <input type="date" name="date" id="date" value={formData.date} onChange={handleChange}
+                  className="w-full px-3 py-2.5 bg-white/5 border border-white/[0.07] rounded-lg text-sm text-gray-200 focus:outline-none focus:border-indigo-500/50 transition" />
               </div>
-
-              <div className="flex-1">
-                <label className="text-sm" htmlFor="mood">
-                  Mood {detecting && <span className="text-gray-400 text-xs">detecting...</span>}
+              <div className="flex-1 space-y-1.5">
+                <label className="text-xs text-gray-400" htmlFor="mood">
+                  Mood {detecting && <span className="text-indigo-400 text-xs ml-1">detecting...</span>}
                 </label>
-                <select
-                  id="mood"
-                  value={mood}
-                  onChange={(e) => setMood(e.target.value)}
-                  className="w-full mt-1 px-3 py-2 bg-[#2a2a2a] border border-[#3a3a3a] rounded-lg"
-                >
-                  <option value="" disabled>-- AI will detect --</option>
-                  {MOODS.map((m) => (
-                    <option key={m.emoji} value={m.emoji}>
-                      {m.emoji} {m.label}
-                    </option>
-                  ))}
+                <select id="mood" value={mood} onChange={(e) => setMood(e.target.value)}
+                  className="w-full px-3 py-2.5 bg-white/5 border border-white/[0.07] rounded-lg text-sm text-gray-200 focus:outline-none focus:border-indigo-500/50 transition">
+                  <option value="" disabled>AI will detect</option>
+                  {MOODS.map((m) => <option key={m.emoji} value={m.emoji}>{m.emoji} {m.label}</option>)}
                 </select>
               </div>
             </div>
 
-            <div>
-              <label className="text-sm" htmlFor="content">
-                What's on your mind? <span className="text-red-500">*</span>
-              </label>
-              <textarea
-                name="content"
-                id="content"
-                value={formData.content}
-                onChange={handleChange}
-                required
+            <div className="space-y-1.5">
+              <label className="text-xs text-gray-400" htmlFor="content">Content <span className="text-red-400">*</span></label>
+              <textarea name="content" id="content" value={formData.content} onChange={handleChange} required
                 placeholder="Write your thoughts, memories, or feelings..."
-                className="w-full mt-1 px-3 py-2 h-40 bg-[#2a2a2a] border border-[#3a3a3a] rounded-lg resize-none outline-none"
-              />
+                className="w-full px-3 py-2.5 h-40 bg-white/5 border border-white/[0.07] rounded-lg text-sm text-gray-200 placeholder-gray-600 resize-none focus:outline-none focus:border-indigo-500/50 transition" />
             </div>
 
-            <button
-              type="submit"
-              disabled={isLoading}
-              className="w-full py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg transition disabled:opacity-50"
-            >
+            <button type="submit" disabled={isLoading}
+              className="w-full py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium rounded-lg transition disabled:opacity-50">
               {isLoading ? "Saving..." : "Save Entry"}
             </button>
           </form>

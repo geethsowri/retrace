@@ -73,22 +73,20 @@ const EditEntry = ({ id }) => {
 
   return (
     <>
-      <p
+      <button
         onClick={() => setOpen(true)}
-        className="text-green-400 hover:text-green-300 cursor-pointer"
+        className="p-1.5 rounded-lg text-gray-500 hover:text-gray-200 hover:bg-white/10 transition"
       >
-        <Pencil size={18} />
-      </p>
+        <Pencil size={14} />
+      </button>
 
       <ModalLayout isOpen={open} close={() => setOpen(false)}>
-        <div className="bg-[#1a1a1a] text-gray-200 rounded-2xl p-6 space-y-5 max-w-lg mx-auto shadow-xl">
-          <h2 className="text-center text-xl font-semibold">Edit Your Entry</h2>
+        <div className="p-6 space-y-5">
+          <h2 className="text-lg font-semibold text-white">Edit Entry</h2>
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label className="text-sm" htmlFor={`title.${id}`}>
-                Title <span className="text-red-500">*</span>
-              </label>
+            <div className="space-y-1.5">
+              <label className="text-xs text-gray-400" htmlFor={`title.${id}`}>Title <span className="text-red-400">*</span></label>
               <input
                 type="text"
                 name="title"
@@ -97,36 +95,34 @@ const EditEntry = ({ id }) => {
                 onChange={handleChange}
                 required
                 placeholder="Give your entry a title"
-                className="w-full mt-1 px-3 py-2 bg-[#2a2a2a] border border-[#3a3a3a] rounded-lg"
+                className="w-full px-3 py-2.5 bg-white/5 border border-white/[0.07] rounded-lg text-sm text-gray-200 placeholder-gray-600 focus:outline-none focus:border-indigo-500/50 transition"
               />
             </div>
 
-            <div className="flex gap-4">
-              <div className="flex-1">
-                <label className="text-sm" htmlFor={`date.${id}`}>
-                  Date <span className="text-red-500">*</span>
-                </label>
+            <div className="flex gap-3">
+              <div className="flex-1 space-y-1.5">
+                <label className="text-xs text-gray-400" htmlFor={`date.${id}`}>Date</label>
                 <input
                   type="date"
                   name="date"
                   id={`date.${id}`}
                   value={formData.date}
                   onChange={handleChange}
-                  className="w-full mt-1 px-3 py-2 bg-[#2a2a2a] border border-[#3a3a3a] rounded-lg"
+                  className="w-full px-3 py-2.5 bg-white/5 border border-white/[0.07] rounded-lg text-sm text-gray-200 focus:outline-none focus:border-indigo-500/50 transition"
                 />
               </div>
 
-              <div className="flex-1">
-                <label className="text-sm" htmlFor={`mood.${id}`}>
-                  Mood {detecting && <span className="text-gray-400 text-xs">detecting...</span>}
+              <div className="flex-1 space-y-1.5">
+                <label className="text-xs text-gray-400" htmlFor={`mood.${id}`}>
+                  Mood {detecting && <span className="text-indigo-400 text-xs ml-1">detecting...</span>}
                 </label>
                 <select
                   id={`mood.${id}`}
                   value={mood}
                   onChange={(e) => setMood(e.target.value)}
-                  className="w-full mt-1 px-3 py-2 bg-[#2a2a2a] border border-[#3a3a3a] rounded-lg"
+                  className="w-full px-3 py-2.5 bg-white/5 border border-white/[0.07] rounded-lg text-sm text-gray-200 focus:outline-none focus:border-indigo-500/50 transition"
                 >
-                  <option value="" disabled>-- AI will detect --</option>
+                  <option value="" disabled>AI will detect</option>
                   {MOODS.map((m) => (
                     <option key={m.emoji} value={m.emoji}>
                       {m.emoji} {m.label}
@@ -136,10 +132,8 @@ const EditEntry = ({ id }) => {
               </div>
             </div>
 
-            <div>
-              <label className="text-sm" htmlFor={`content.${id}`}>
-                Content <span className="text-red-500">*</span>
-              </label>
+            <div className="space-y-1.5">
+              <label className="text-xs text-gray-400" htmlFor={`content.${id}`}>Content <span className="text-red-400">*</span></label>
               <textarea
                 name="content"
                 id={`content.${id}`}
@@ -147,15 +141,12 @@ const EditEntry = ({ id }) => {
                 onChange={handleChange}
                 required
                 placeholder="Write your thoughts..."
-                className="w-full mt-1 px-3 py-2 h-40 bg-[#2a2a2a] border border-[#3a3a3a] rounded-lg resize-none"
+                className="w-full px-3 py-2.5 h-40 bg-white/5 border border-white/[0.07] rounded-lg text-sm text-gray-200 placeholder-gray-600 resize-none focus:outline-none focus:border-indigo-500/50 transition"
               />
             </div>
 
-            <button
-              type="submit"
-              disabled={isLoading}
-              className="w-full py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg transition"
-            >
+            <button type="submit" disabled={isLoading}
+              className="w-full py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium rounded-lg transition disabled:opacity-50">
               {isLoading ? "Saving..." : "Save Changes"}
             </button>
           </form>
