@@ -1,6 +1,7 @@
 const Entry = require("../models/entryModel");
 const validator = require("validator");
 const classifyMood = require("../utils/classifyMood");
+const mongoose = require("mongoose");
 
 const classifyMoodEntry = async (req, res) => {
   const { content } = req.body;
@@ -159,6 +160,26 @@ const updateEntry = async (req, res) => {
   }
 };
 
+const bulkDeleteEntries = async (req, res) => {
+  const loggedUser = req.user;
+  const { ids } = req.body;
+
+  if (!Array.isArray(ids) || ids.length === 0)
+    return res.status(422).json({ message: "No entry IDs provided." });
+
+  try {
+    const objectIds = ids.map((id) => new mongoose.Types.ObjectId(id));
+    const result = await Entry.deleteMany({
+      _id: { $in: objectIds },
+      createdBy: loggedUser._id,
+    });
+    res.status(200).json({ message: `${result.deletedCount} entries deleted.` });
+  } catch (error) {
+    console.error("Error bulk deleting entries:", error);
+    res.status(500).json({ message: "Something went wrong. Please try again later." });
+  }
+};
+
 const deleteEntry = async (req, res) => {
   const loggedUser = req.user;
   const entryId = req.params.id;
@@ -231,6 +252,7 @@ const searchEntries = async (req, res) => {
 module.exports = {
   classifyMoodEntry,
   createEntry,
+  bulkDeleteEntries,
   getEntries,
   getEntry,
   updateEntry,

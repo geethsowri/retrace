@@ -11,6 +11,7 @@ router.get("/", entryController.getEntries);
 router.get("/search", entryController.searchEntries);
 router.get("/:id", entryController.getEntry);
 router.patch("/:id", entryController.updateEntry);
+router.delete("/bulk", entryController.bulkDeleteEntries);
 router.delete("/:id", entryController.deleteEntry);
 
 module.exports = router;

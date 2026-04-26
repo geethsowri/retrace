@@ -45,6 +45,15 @@ const entriesApiSlice = apiSlice.injectEndpoints({
       invalidatesTags: ["Entries"],
     }),
 
+    bulkDeleteEntries: builder.mutation({
+      query: (ids) => ({
+        url: "/entries/bulk",
+        method: "DELETE",
+        body: { ids },
+      }),
+      invalidatesTags: ["Entries"],
+    }),
+
     searchEntry: builder.query({
       query: (data) => ({
         url: "/entries/search",
@@ -62,5 +71,6 @@ export const {
   useGetEntryQuery,
   useUpdateEntryMutation,
   useDeleteEntryMutation,
+  useBulkDeleteEntriesMutation,
   useSearchEntryQuery,
 } = entriesApiSlice;
