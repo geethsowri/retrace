@@ -4,7 +4,7 @@ const Footer = () => {
       <p className="text-center flex flex-wrap justify-center items-center gap-1">
         <span className="text-gray-400 font-medium">reTrace</span> — built by{" "}
         <a
-          href="https://geethsowri-dev.vercel.app"
+          href="https://geethsowri.vercel.app"
           target="_blank"
           rel="noopener noreferrer"
           className="text-gray-500 hover:text-gray-300 transition underline underline-offset-4"
