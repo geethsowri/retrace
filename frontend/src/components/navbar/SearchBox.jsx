@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Search } from "lucide-react";
 
 const SearchBox = ({ toggle }) => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -18,29 +19,18 @@ const SearchBox = ({ toggle }) => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="w-full max-w-md mx-auto flex"
-      role="search"
-      aria-label="Search journal entries"
-    >
-      <input
-        type="search"
-        name="search"
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-        placeholder="Search entries..."
-        autoComplete="off"
-        aria-label="Search journal entries"
-        className="flex-grow px-4 py-2 rounded-l-full border border-stone-800 bg-[#1a1a1a] text-gray-100 transition"
-      />
-      <button
-        type="submit"
-        aria-label="Submit search"
-        className="px-6 py-2 bg-[#242424] text-gray-100 rounded-r-full hover:bg-[#323232] transition"
-      >
-        Search
-      </button>
+    <form onSubmit={handleSubmit} role="search">
+      <div className="relative flex items-center">
+        <Search size={14} className="absolute left-3 text-gray-500 pointer-events-none" />
+        <input
+          type="search"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          placeholder="Search entries..."
+          autoComplete="off"
+          className="pl-9 pr-4 py-1.5 w-52 rounded-lg bg-white/5 border border-white/[0.07] text-sm text-gray-300 placeholder-gray-600 focus:outline-none focus:border-indigo-500/40 transition"
+        />
+      </div>
     </form>
   );
 };

@@ -43,102 +43,50 @@ const Signup = () => {
   };
 
   return (
-    <div className="min-h-[calc(100svh-64px-52px-40px)]">
-      <div className="my-10">
-        <p className="text-lg font-semibold text-center">
-          Create your reTrace account
-        </p>
-        <p className="text-lg font-semibold text-center">
-          and stay organized effortlessly.
-        </p>
-      </div>
-      <div className="flex justify-center px-7 my-10">
-        <div className="card card-xl bg-base-200 w-full max-w-sm rounded-2xl shadow-xl hover:shadow-2xl">
-          <div className="card-body">
-            <h2 className="card-title block text-center text-lg mb-2">
-              Sign up to reTrace
-            </h2>
-            <form onSubmit={handleSubmit}>
-              <div className="text-sm">
-                <div>
-                  <label htmlFor="firstname">
-                    First Name <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    id="firstname"
-                    type="text"
-                    className="input w-full rounded-lg my-3"
-                    placeholder="Enter your first name"
-                    onChange={handleChange}
-                    name="firstName"
-                    value={formData.firstName}
-                    required
-                  />
-                </div>
+    <div className="min-h-[calc(100svh-64px-52px)] flex items-center justify-center px-4 py-12 bg-[#080808]">
+      <div className="w-full max-w-sm space-y-8">
+        <div className="text-center space-y-1">
+          <h1 className="text-2xl font-bold text-white">Create an account</h1>
+          <p className="text-sm text-gray-500">Start your private journal today</p>
+        </div>
 
-                <div>
-                  <label htmlFor="lastname">Last Name</label>
-                  <input
-                    id="lastname"
-                    type="text"
-                    className="input w-full rounded-lg my-3"
-                    placeholder="Optional"
-                    onChange={handleChange}
-                    name="lastName"
-                    value={formData.lastName}
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="email">
-                    Email <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    id="email"
-                    type="email"
-                    className="input w-full rounded-lg my-3"
-                    placeholder="Email address"
-                    onChange={handleChange}
-                    name="email"
-                    value={formData.email}
-                    required
-                    autoComplete="on"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="password">
-                    Password <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    id="password"
-                    type="password"
-                    className="input w-full rounded-lg my-3"
-                    placeholder="Password"
-                    onChange={handleChange}
-                    name="password"
-                    value={formData.password}
-                    required
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className="btn btn-primary w-full rounded-lg my-3"
-                  disabled={isLoading}
-                >
-                  {isLoading ? "Signing up..." : "Sign up"}
-                </button>
+        <div className="bg-[#111] border border-white/[0.07] rounded-2xl p-6 space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="grid grid-cols-2 gap-3">
+              <div className="space-y-1.5">
+                <label htmlFor="firstname" className="text-xs text-gray-400">First Name <span className="text-red-400">*</span></label>
+                <input id="firstname" type="text" name="firstName" placeholder="Jane" onChange={handleChange} value={formData.firstName} required
+                  className="w-full px-3 py-2.5 rounded-lg bg-white/5 border border-white/[0.07] text-sm text-gray-200 placeholder-gray-600 focus:outline-none focus:border-indigo-500/50 transition" />
               </div>
-            </form>
-
-            <div className="text-center text-sm">
-              Already have an account?{" "}
-              <Link to="/login" className="text-red-500 hover:font-bold">
-                Log in
-              </Link>
+              <div className="space-y-1.5">
+                <label htmlFor="lastname" className="text-xs text-gray-400">Last Name</label>
+                <input id="lastname" type="text" name="lastName" placeholder="Doe" onChange={handleChange} value={formData.lastName}
+                  className="w-full px-3 py-2.5 rounded-lg bg-white/5 border border-white/[0.07] text-sm text-gray-200 placeholder-gray-600 focus:outline-none focus:border-indigo-500/50 transition" />
+              </div>
             </div>
-          </div>
+
+            <div className="space-y-1.5">
+              <label htmlFor="email" className="text-xs text-gray-400">Email <span className="text-red-400">*</span></label>
+              <input id="email" type="email" name="email" placeholder="you@example.com" onChange={handleChange} value={formData.email} required autoComplete="email"
+                className="w-full px-3 py-2.5 rounded-lg bg-white/5 border border-white/[0.07] text-sm text-gray-200 placeholder-gray-600 focus:outline-none focus:border-indigo-500/50 transition" />
+            </div>
+
+            <div className="space-y-1.5">
+              <label htmlFor="password" className="text-xs text-gray-400">Password <span className="text-red-400">*</span></label>
+              <input id="password" type="password" name="password" placeholder="••••••••" onChange={handleChange} value={formData.password} required
+                className="w-full px-3 py-2.5 rounded-lg bg-white/5 border border-white/[0.07] text-sm text-gray-200 placeholder-gray-600 focus:outline-none focus:border-indigo-500/50 transition" />
+            </div>
+
+            <button type="submit" disabled={isLoading}
+              className="w-full py-2.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium transition disabled:opacity-50">
+              {isLoading ? "Creating account..." : "Sign up"}
+            </button>
+          </form>
+
+          <p className="text-center text-xs text-gray-500">
+            Already have an account?{" "}
+            <Link to="/login" className="text-indigo-400 hover:text-indigo-300 transition">Log in</Link>
+          </p>
         </div>
       </div>
     </div>

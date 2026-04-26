@@ -1,13 +1,13 @@
 const Footer = () => {
   return (
-    <footer className="bg-[#1a1a1a] text-gray-400 text-sm py-6 px-4 mt-auto w-full">
+    <footer className="border-t border-white/[0.05] text-gray-600 text-xs py-5 px-4 mt-auto w-full">
       <p className="text-center flex flex-wrap justify-center items-center gap-1">
-        <span className="font-semibold text-gray-200">reTrace</span> — designed & built by{" "}
+        <span className="text-gray-400 font-medium">reTrace</span> — built by{" "}
         <a
           href="https://geethsowri-dev.vercel.app"
           target="_blank"
           rel="noopener noreferrer"
-          className="underline underline-offset-4 hover:text-white transition"
+          className="text-gray-500 hover:text-gray-300 transition underline underline-offset-4"
         >
           Geeth Sowri ↗
         </a>

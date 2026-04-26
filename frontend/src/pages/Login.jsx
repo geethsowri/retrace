@@ -32,72 +32,58 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-[calc(100dvh-64px-52px-40px)]">
-      <div className="my-10">
-        <p className="text-lg font-semibold text-center">
-          Log in to access your account
-        </p>
-        <p className="text-lg font-semibold text-center">
-          and continue your journey with reTrace.
-        </p>
-      </div>
-      <div className="flex justify-center px-7 my-10">
-        <div className="card card-xl bg-base-200 w-full max-w-sm rounded-2xl shadow-xl hover:shadow-2xl">
-          <div className="card-body">
-            <h2 className="card-title block text-center text-lg mb-2">
-              Log in to reTrace
-            </h2>
-            <form onSubmit={handleSubmit}>
-              <div className="text-sm">
-                <div>
-                  <label htmlFor="email">
-                    Email <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    id="email"
-                    type="email"
-                    className="input w-full rounded-lg my-3"
-                    placeholder="Enter email"
-                    onChange={(e) => setEmail(e.target.value)}
-                    value={email}
-                    required
-                    autoComplete="on"
-                  />
-                </div>
+    <div className="min-h-[calc(100dvh-64px-52px)] flex items-center justify-center px-4 py-12 bg-[#080808]">
+      <div className="w-full max-w-sm space-y-8">
+        <div className="text-center space-y-1">
+          <h1 className="text-2xl font-bold text-white">Welcome back</h1>
+          <p className="text-sm text-gray-500">Log in to continue to reTrace</p>
+        </div>
 
-                <div>
-                  <label htmlFor="password">
-                    Password <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    id="password"
-                    type="password"
-                    className="input w-full rounded-lg my-3"
-                    placeholder="Password"
-                    onChange={(e) => setPassword(e.target.value)}
-                    autoComplete="current-password"
-                    value={password}
-                    required
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className="btn btn-primary w-full rounded-lg my-3"
-                  disabled={isLoading}
-                >
-                  {isLoading ? "Logging in..." : "Log in"}
-                </button>
-              </div>
-            </form>
-
-            <div className="text-center text-sm">
-              Don't have an account?{" "}
-              <Link to="/signup" className="text-red-500 hover:font-bold">
-                Sign up
-              </Link>
+        <div className="bg-[#111] border border-white/[0.07] rounded-2xl p-6 space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="space-y-1.5">
+              <label htmlFor="email" className="text-xs text-gray-400">Email</label>
+              <input
+                id="email"
+                type="email"
+                placeholder="you@example.com"
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
+                required
+                autoComplete="email"
+                className="w-full px-3 py-2.5 rounded-lg bg-white/5 border border-white/[0.07] text-sm text-gray-200 placeholder-gray-600 focus:outline-none focus:border-indigo-500/50 transition"
+              />
             </div>
-          </div>
+
+            <div className="space-y-1.5">
+              <label htmlFor="password" className="text-xs text-gray-400">Password</label>
+              <input
+                id="password"
+                type="password"
+                placeholder="••••••••"
+                onChange={(e) => setPassword(e.target.value)}
+                autoComplete="current-password"
+                value={password}
+                required
+                className="w-full px-3 py-2.5 rounded-lg bg-white/5 border border-white/[0.07] text-sm text-gray-200 placeholder-gray-600 focus:outline-none focus:border-indigo-500/50 transition"
+              />
+            </div>
+
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="w-full py-2.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium transition disabled:opacity-50"
+            >
+              {isLoading ? "Logging in..." : "Log in"}
+            </button>
+          </form>
+
+          <p className="text-center text-xs text-gray-500">
+            No account?{" "}
+            <Link to="/signup" className="text-indigo-400 hover:text-indigo-300 transition">
+              Sign up
+            </Link>
+          </p>
         </div>
       </div>
     </div>

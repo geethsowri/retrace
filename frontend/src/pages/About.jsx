@@ -1,45 +1,36 @@
+const items = [
+  "Create, edit, and delete entries on your terms.",
+  "Record key moments and build a personal timeline.",
+  "AI-powered mood detection from your journal content.",
+  "JWT-protected, encrypted, and stored securely.",
+];
+
 const About = () => {
   return (
-    <div className="flex justify-center px-4 sm:px-6 lg:px-10 my-10">
-      <div className="w-full max-w-3xl bg-[#1a1a1a] shadow-xl hover:shadow-2xl rounded-3xl p-6 md:p-8">
-        <h1 className="text-3xl font-bold text-center mb-7">About reTrace</h1>
-        <p className="text-lg text-center mb-4">
-          reTrace is your private command center for thoughts and memories. Built with performance and security at the core, it’s designed for individuals who value clarity, control, and resilience. No distractions. No compromise.
-        </p>
+    <div className="min-h-[calc(100svh-64px-52px)] flex items-start justify-center px-4 py-16 bg-[#080808]">
+      <div className="w-full max-w-2xl space-y-10">
+        <div className="text-center space-y-3">
+          <p className="text-xs text-indigo-400 uppercase tracking-widest">About</p>
+          <h1 className="text-3xl font-bold text-white">reTrace</h1>
+          <p className="text-gray-400 text-sm max-w-md mx-auto leading-relaxed">
+            A private journaling tool built for clarity and security. No noise. No tracking. Just your thoughts.
+          </p>
+        </div>
 
-        <div className="divider"></div>
+        <div className="bg-[#111] border border-white/[0.07] rounded-2xl p-6 space-y-3">
+          <p className="text-xs text-gray-500 uppercase tracking-wider mb-4">What you can do</p>
+          {items.map((item) => (
+            <div key={item} className="flex items-start gap-3 text-sm text-gray-300">
+              <span className="text-indigo-500 mt-0.5 shrink-0">✦</span>
+              {item}
+            </div>
+          ))}
+        </div>
 
-        <h2 className="text-2xl font-bold text-center mb-4">What You Can Do</h2>
-        <ul className="space-y-3 text-lg px-4 sm:px-6">
-          <li className="flex items-start gap-2">
-            <span>
-              Create, edit, and delete entries on your terms. Everything stays locked and secure.
-            </span>
-          </li>
-          <li className="flex items-start gap-2">
-            <span>
-              Record key moments and build a clear timeline of personal growth.
-            </span>
-          </li>
-          <li className="flex items-start gap-2">
-            <span>
-              Personalize your profile while keeping your data protected.
-            </span>
-          </li>
-          <li className="flex items-start gap-2">
-            <span>
-              Your data is encrypted, protected by JWT, and stored with hardened server logic.
-            </span>
-          </li>
-        </ul>
-
-        <div className="divider"></div>
-
-        <div className="text-center mt-5">
-          <a href="https://github.com/geethsowri/reTrace" target="_blank">
-            <button className="bg-gray-800 hover:bg-gray-700 text-white px-6 py-3 rounded-2xl transition duration-200 cursor-pointer">
-              View Code on GitHub
-            </button>
+        <div className="text-center">
+          <a href="https://github.com/geethsowri/reTrace" target="_blank" rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-white/[0.08] text-sm text-gray-300 hover:text-white hover:border-white/20 hover:bg-white/5 transition">
+            View on GitHub ↗
           </a>
         </div>
       </div>

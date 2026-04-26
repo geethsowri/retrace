@@ -4,77 +4,54 @@ import { useSelector } from "react-redux";
 const Home = () => {
   const user = useSelector((state) => state.user);
 
+  const features = [
+    { icon: "✦", title: "Daily Journaling", desc: "Build a writing habit. Track emotional growth over time." },
+    { icon: "✦", title: "AI Mood Detection", desc: "Gemini reads your entry and detects your mood automatically." },
+    { icon: "✦", title: "Full Entry Control", desc: "Add, edit, delete, and bulk-manage entries with ease." },
+    { icon: "✦", title: "Secure & Private", desc: "JWT-protected, encrypted, and only yours." },
+  ];
+
   return (
-    <div className="bg-[#0f0f0f] text-gray-200 min-h-screen font-sans">
-      <div className="flex justify-center items-center min-h-[calc(100svh-64px)] relative px-4">
-        <div className="text-center max-w-2xl space-y-6">
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
-            {user ? `Welcome back, ${user.data.firstName}` : "Welcome to reTrace"}
+    <div className="bg-[#080808] text-gray-200 min-h-screen">
+      {/* Hero */}
+      <div className="flex flex-col justify-center items-center min-h-[calc(100svh-64px)] relative px-4 text-center">
+        <div className="max-w-2xl space-y-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/[0.08] bg-white/[0.03] text-xs text-gray-400 mb-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse" />
+            Private journaling, powered by AI
+          </div>
+          <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-white leading-tight">
+            {user ? `Welcome back,` : "Your thoughts,"}<br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">
+              {user ? user.data.firstName : "finally private"}
+            </span>
           </h1>
-          <p className="text-gray-400 text-lg">
+          <p className="text-gray-400 text-base md:text-lg max-w-md mx-auto">
             {user
-              ? "Your entries are private, encrypted, and always ready."
-              : "Log in to keep your journal secure and within reach."}
+              ? "Your entries are waiting. Private, encrypted, and always ready."
+              : "A minimal journal that keeps your thoughts secure and your mood in check."}
           </p>
           <Link
             to="/entries"
-            className="inline-block bg-gray-800 hover:bg-gray-700 text-white px-6 py-3 rounded-2xl transition duration-200"
+            className="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white px-6 py-2.5 rounded-xl text-sm font-medium transition duration-200"
           >
-            {user ? "Go to Your Entries" : "Get Started"}
+            {user ? "Go to Your Entries" : "Get Started"} →
           </Link>
         </div>
-        <div className="absolute bottom-6 animate-bounce text-sm text-gray-500">
-          ↓ Scroll to Explore
-        </div>
+        <div className="absolute bottom-8 text-xs text-gray-600 animate-bounce">↓</div>
       </div>
 
-      <div className="py-20 px-4">
-        <h2 className="text-3xl font-semibold text-center mb-10">Working & Key Features</h2>
-        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12">
-          {/* Left: Getting Started */}
-          <div className="space-y-8">
-            <h3 className="text-2xl font-medium text-gray-300">Getting Started is Simple</h3>
-            {[
-              {
-                title: "1. Sign Up",
-                desc: "Create your free account. Your thoughts stay encrypted and private, always.",
-              },
-              {
-                title: "2. Start Writing",
-                desc: "Capture emotions, thoughts, and milestones freely and revisit anytime.",
-              },
-              {
-                title: "3. Manage Profile",
-                desc: "Update your personal info and keep your profile secured."
-              },
-            ].map(({ title, desc }) => (
-              <div key={title} className="bg-[#1a1a1a] p-5 rounded-2xl shadow-inner border border-gray-800">
-                <h4 className="text-lg font-semibold mb-2">{title}</h4>
-                <p className="text-gray-400">{desc}</p>
-              </div>
-            ))}
-          </div>
-
-          {/* Right: Features */}
-          <div className="space-y-8">
-            <h3 className="text-2xl font-medium text-gray-300">Features Designed for You</h3>
-            {[
-              {
-                title: "Daily Journaling",
-                desc: "Build your habit with focused writing sessions and track emotional growth.",
-              },
-              {
-                title: "Entry Management",
-                desc: "Add, edit, or delete entries with ease. Total control, zero clutter.",
-              },
-              {
-                title: "Secure & Private",
-                desc: "Cloud-synced, encrypted, and yours only. Safety meets simplicity.",
-              },
-            ].map(({ title, desc }) => (
-              <div key={title} className="bg-[#1a1a1a] p-5 rounded-2xl shadow-inner border border-gray-800">
-                <h4 className="text-lg font-semibold mb-2">{title}</h4>
-                <p className="text-gray-400">{desc}</p>
+      {/* Features */}
+      <div className="py-24 px-4 border-t border-white/[0.04]">
+        <div className="max-w-4xl mx-auto">
+          <p className="text-xs text-indigo-400 text-center uppercase tracking-widest mb-3">Features</p>
+          <h2 className="text-2xl md:text-3xl font-semibold text-center text-white mb-12">Everything you need, nothing you don't</h2>
+          <div className="grid sm:grid-cols-2 gap-4">
+            {features.map(({ icon, title, desc }) => (
+              <div key={title} className="group p-5 rounded-2xl border border-white/[0.06] bg-white/[0.02] hover:bg-white/[0.04] hover:border-white/[0.10] transition duration-200">
+                <div className="text-indigo-400 text-lg mb-3">{icon}</div>
+                <h4 className="text-sm font-semibold text-white mb-1">{title}</h4>
+                <p className="text-sm text-gray-500">{desc}</p>
               </div>
             ))}
           </div>

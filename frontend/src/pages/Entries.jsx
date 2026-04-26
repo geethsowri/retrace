@@ -89,13 +89,13 @@ const Entries = () => {
   }
 
   return (
-    <div className={`bg-[#0f0f0f] min-h-screen text-gray-200 px-6 pb-20 ${selectedIds.length > 0 ? "pt-20" : "pt-6"}`}>
+    <div className={`bg-[#080808] min-h-screen text-gray-200 px-6 pb-20 ${selectedIds.length > 0 ? "pt-20" : "pt-6"}`}>
       {selectedIds.length > 0 && (
-        <div className="fixed top-16 left-0 right-0 z-20 flex flex-wrap items-center justify-between gap-2 px-4 py-2 bg-[#1a1a1a] border-b border-[#2c2c2c] shadow-lg">
+        <div className="fixed top-16 left-0 right-0 z-20 flex flex-wrap items-center justify-between gap-2 px-4 py-2.5 bg-[#0a0a0a]/90 backdrop-blur-xl border-b border-white/[0.06] shadow-lg">
           <div className="flex items-center gap-3">
             <button
               onClick={toggleSelectAll}
-              className="text-sm text-blue-400 hover:text-blue-300 whitespace-nowrap"
+              className="text-sm text-indigo-400 hover:text-indigo-300 whitespace-nowrap"
             >
               {selectedIds.length === entries.length ? "Deselect all" : "Select all"}
             </button>
